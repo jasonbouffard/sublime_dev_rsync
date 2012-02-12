@@ -1,0 +1,16 @@
+{
+    "host": "my-dev",
+    "target_dir": "/var/www/site-dev",
+    "exclude":
+    [
+        ".git",
+        ".svn",
+        ".DS_Store"
+    ],
+    "option":
+    [
+        "verbose",
+        "delete",
+        "archive"
+    ]
+}
