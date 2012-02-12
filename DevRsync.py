@@ -22,8 +22,7 @@ class DevRsyncCommand(sublime_plugin.EventListener):
                 cmd.append('--' + option)
 
             for exclude in data['exclude']:
-                cmd.append('--exclude')
-                cmd.append(exclude)
+                cmd.append('--exclude="' + exclude + '"')
 
             cmd.append(projectFolder + '/')
             cmd.append(data['host'] + ':' + data['target_dir'] + '/')
