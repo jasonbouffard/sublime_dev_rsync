@@ -2,28 +2,28 @@ This plugin requires a dev_rsync.json file at the root of your project to define
 
 ```
 {
-  // Must be able to ssh to this server. Easiest to set this up in ~/.ssh/config
-  "host": "devserver.com",
+    // Must be able to ssh to this server. Easiest to set this up in ~/.ssh/config
+    "host": "devserver.com",
   
-  // Must have write access to this directory
-  "target_dir": "/var/www/devsite.com",
-	
-  // Any files and/or directories you'd like to exclude from the rsync
-  "exclude":
-	[
-		".git",
-		".svn",
-		".DS_Store"
-	],
+    // Must have write access to this directory
+    "target_dir": "/var/www/devsite.com",
+    
+    // Any files and/or directories you'd like to exclude from the rsync
+    "exclude":
+    [
+        ".git",
+        ".svn",
+        ".DS_Store"
+    ],
   
-  // Any rsync options you'd like to use
-  // http://ss64.com/bash/rsync_options.html
-	"option":
-  [
-	  "verbose",
-		"delete",
-		"archive"
-  ]
+    // Any rsync options you'd like to use
+    // http://ss64.com/bash/rsync_options.html
+    "option":
+    [
+        "verbose",
+        "delete",
+        "archive"
+    ]
 }
 ```
 
