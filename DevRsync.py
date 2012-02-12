@@ -3,7 +3,7 @@ import json, os, subprocess, functools
 
 class DevRsyncCommand(sublime_plugin.EventListener):
     def on_post_save(self, view):
-        cmd = "rsync"
+        cmd = ["rsync"]
 
         # Check if we're in a proper ST2 project
         if not view.window().folders():
@@ -19,17 +19,19 @@ class DevRsyncCommand(sublime_plugin.EventListener):
             json_data.close
 
             for option in data['option']:
-                cmd += ' --' + option
+                cmd.append('--' + option)
 
             for exclude in data['exclude']:
-                cmd += ' --exclude="' + exclude + '"'
+                cmd.append('--exclude')
+                cmd.append(exclude)
 
-            cmd += ' ' + projectFolder + '/' + ' ' + data['host'] + ':' + data['target_dir'] + '/'
+            cmd.append(projectFolder + '/')
+            cmd.append(data['host'] + ':' + data['target_dir'] + '/')
 
             # Execute the rsync command
-            p = subprocess.call(cmd, shell = True)
+            p = subprocess.call(cmd)
 
-            sublime.set_timeout(functools.partial(self.updateStatus, view, 'DevSync Done!'), 100)
+            sublime.set_timeout(functools.partial(self.updateStatus, view, 'DevRsync Done!'), 100)
 
     def updateStatus(self, view, text):
         sublime.status_message(text);
