@@ -1,6 +1,6 @@
 This plugin requires a dev_rsync.json file at the root of your project to define your rsync parameters and options.
 
-```
+```javascript
 {
     // Must be able to ssh to this server. Easiest to set this up in ~/.ssh/config
     "host": "devserver.com",
