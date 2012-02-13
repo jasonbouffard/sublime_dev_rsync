@@ -1,6 +1,8 @@
+### Usage
+
 This plugin requires a dev_rsync.json file at the root of your project to define your rsync parameters and options.
 
-```
+```javascript
 {
     // Must be able to ssh to this server. Easiest to set this up in ~/.ssh/config
     "host": "devserver.com",
@@ -26,5 +28,9 @@ This plugin requires a dev_rsync.json file at the root of your project to define
     ]
 }
 ```
+
+I suggest you ignore your `dev_rsync.json` file so each developer on your project can have their own setup. And version a `dev_rsync.json.dist` file to provide a template for devs to get started with.
+
+### License
 
 All of Sublime Dev Rsync is licensed under the MIT license.
