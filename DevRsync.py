@@ -13,24 +13,35 @@ class DevRsyncCommand(sublime_plugin.EventListener):
         projectFile   = projectFolder + '/dev_rsync.json'
 
         # Skip syncing if there is no dev_rsync.json file
-        if os.path.exists(projectFile):
-            json_data = open(projectFile)
-            data      = json.load(json_data)
-            json_data.close
+        if not os.path.exists(projectFile):
+            return
 
-            for option in data['option']:
-                cmd.append('--' + option)
+        json_data = open(projectFile)
+        data      = json.load(json_data)
+        json_data.close
 
-            for exclude in data['exclude']:
-                cmd.append('--exclude="' + exclude + '"')
+        for option in data['option']:
+            cmd.append('--' + option)
 
-            cmd.append(projectFolder + '/')
-            cmd.append(data['host'] + ':' + data['target_dir'] + '/')
+        for exclude in data['exclude']:
+            cmd.append('--exclude=' + exclude)
 
-            # Execute the rsync command
-            p = subprocess.call(cmd)
+        cmd.append(projectFolder + '/')
+        cmd.append(data['host'] + ':' + data['target_dir'] + '/')
 
-            sublime.set_timeout(functools.partial(self.updateStatus, view, 'DevRsync Done!'), 100)
+        print 'DevRsync - '+ ' '.join(cmd)
+
+        # Execute the rsync command
+        p = subprocess.Popen(cmd, stdout=subprocess.PIPE)
+
+        out, err = p.communicate()
+
+        print "\n".join("DevRsync - " + line for line in out.split("\n"))
+
+        if err != None:
+            print err
+
+        sublime.set_timeout(functools.partial(self.updateStatus, view, 'DevRsync Done!'), 100)
 
     def updateStatus(self, view, text):
         sublime.status_message(text);
